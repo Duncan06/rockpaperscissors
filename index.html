@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<script>
+    function computerPlay() {
+        let choices = ['Rock', 'Paper', 'Scissors'];
+        choice = choices[Math.floor(Math.random() * choices.length)];
+        return choice;
+    }
+    function playRound(playerSelection, computerSelection) {
+        selection = playerSelection.toLowerCase();
+        if (selection == 'rock'){
+            if (computerSelection == 'Rock'){
+                return 'Draw. You both threw rock. Go again!';
+            }
+            if (computerSelection == 'Paper'){
+                return 'Computer wins! Paper beats rock.';
+            }
+            else {
+                return 'You win! Rock beats scissors.';
+            }
+        }
+        if (selection == 'paper'){
+            if (computerSelection == 'Rock'){
+                return 'You win! Paper beats rock.';
+            }
+            if (computerSelection == 'Paper'){
+                return 'Draw. You both threw paper. Go again!';
+            }
+            else {
+                return 'Computer wins! Scissor beats paper.';
+            }
+        }
+        if (selection == 'scissors'){
+            if (computerSelection == 'Rock'){
+                return 'Computer wins! Rock beats scissors.';
+            }
+            if (computerSelection == 'Paper'){
+                return 'You win! Scissors beats paper.';
+            }
+            else {
+                return 'Draw. Go again! You both threw scissors.';
+            }
+        }
+        else {
+            selection = window.prompt('Choose from selection. \
+                 Would you like to throw rock paper or scissors?');
+            return playRound(selection, computerPlay());
+        }
+    }
+
+    function game(playRound) {
+        let playerScore = 0;
+        let computerScore = 0;
+        for (let i = 0; i < 5; i++) {
+            userChoice = window.prompt('Would you like to throw rock, paper, or scissors?');
+            str = playRound(userChoice, computerPlay());
+            if (str.match(/Comp/)) {
+                computerScore += 1;
+            }
+            if  (str.match(/You win!/)) {
+                playerScore += 1;
+            }
+            console.log(str);
+        }
+
+        if (playerScore > computerScore) {
+            return console.log(`Player wins! Player's score: ${playerScore}, Computer's score ${computerScore}`);
+        }
+
+        else if (computerScore > playerScore) {
+            return console.log(`Computer wins! Player's score: ${playerScore}, Computer's score ${computerScore}`);
+        }
+
+        else {
+            return console.log(`Draw! Player's score: ${playerScore}, Computer's score ${computerScore}`);
+        }
+
+    }
+
+    game(playRound);
+</script>
