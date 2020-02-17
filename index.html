@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+
+<body>
+    <button id = "Rock"> Rock </button>
+    <button id = "Paper"> Paper </button>
+    <button id = "Scissors"> Scissor </button>
+
+    <div id = "rounds"> 
+        <div id = "playerScore"></div>
+        <div id = "computerScore"></div>
+    </div>
+</body>
 <script>
     function computerPlay() {
         let choices = ['Rock', 'Paper', 'Scissors'];
@@ -47,34 +58,79 @@
         }
     }
 
-    function game(playRound) {
-        let playerScore = 0;
-        let computerScore = 0;
-        for (let i = 0; i < 5; i++) {
-            userChoice = window.prompt('Would you like to throw rock, paper, or scissors?');
-            str = playRound(userChoice, computerPlay());
-            if (str.match(/Comp/)) {
+    // function game(playRound) {
+    //     let playerScore = 0;
+    //     let computerScore = 0;
+    //     for (let i = 0; i < 5; i++) {
+    //         userChoice = window.prompt('Would you like to throw rock, paper, or scissors?');
+    //         str = playRound(userChoice, computerPlay());
+    //         if (str.match(/Comp/)) {
+    //             computerScore += 1;
+    //         }
+    //         if  (str.match(/You win!/)) {
+    //             playerScore += 1;
+    //         }
+    //         console.log(str);
+    //     }
+
+    //     if (playerScore > computerScore) {
+    //         return `Player wins! Player's score: ${playerScore}, Computer's score ${computerScore}`;
+    //     }
+
+    //     else if (computerScore > playerScore) {
+    //         return `Computer wins! Player's score: ${playerScore}, Computer's score ${computerScore}`;
+    //     }
+
+    //     else {
+    //         return `Draw! Player's score: ${playerScore}, Computer's score ${computerScore}`;
+    //     }
+
+    // }
+
+    const buttons = document.querySelectorAll('button');
+    
+    let playerScore = 0;
+    let computerScore = 0;
+
+    buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            let round = (playRound(button.id, computerPlay()));
+            
+            divround.textContent = round;
+
+            if (round.match(/Comp/)) {
                 computerScore += 1;
-            }
-            if  (str.match(/You win!/)) {
+                s2.textContent = `Computer score: ${computerScore}`;
+                if (computerScore > 4) {
+                    alert(`Computer wins! Player's score: ${playerScore}, Computer's score ${computerScore}`);
+                    location.reload();
+                }
+                }
+            if (round.match(/You win!/)) {
                 playerScore += 1;
+                s1.textContent = `Player Score: ${playerScore}`;
+                if (playerScore > 4) {
+                    alert(`Player wins! Player's score: ${playerScore}, Computer's score ${computerScore}`);
+                    location.reload();
+                }
             }
-            console.log(str);
-        }
+        })
+    });
 
-        if (playerScore > computerScore) {
-            return console.log(`Player wins! Player's score: ${playerScore}, Computer's score ${computerScore}`);
-        }
 
-        else if (computerScore > playerScore) {
-            return console.log(`Computer wins! Player's score: ${playerScore}, Computer's score ${computerScore}`);
-        }
+    const current = document.querySelector('#rounds');
+    const divround = document.createElement('p');
+    current.appendChild(divround);
+    
+    
+    const players = document.querySelector('#playerScore');
+    const s1 = document.createElement('p');
+    s1.textContent = `Player Score: ${playerScore}`;
+    players.appendChild(s1);
 
-        else {
-            return console.log(`Draw! Player's score: ${playerScore}, Computer's score ${computerScore}`);
-        }
+    const computers = document.querySelector('#computerScore');
+    const s2 = document.createElement('p');
+    s2.textContent = `Computer score: ${computerScore}`;
+    computers.appendChild(s2);
 
-    }
-
-    game(playRound);
 </script>
